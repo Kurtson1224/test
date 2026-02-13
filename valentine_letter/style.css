@@ -1,0 +1,248 @@
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Georgia', serif;
+  background: #000;
+}
+
+/* Background Photos */
+.photo-background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -2;
+}
+
+.photo-background img {
+  position: absolute;
+  width: 180px;
+  opacity: 0.35;
+  border-radius: 15px;
+  animation: floatRotate 30s linear infinite;
+}
+
+/* Random scattered positions */
+.photo-background img:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+.photo-background img:nth-child(2) { top: 60%; left: 70%; animation-delay: 2s; }
+.photo-background img:nth-child(3) { top: 30%; left: 50%; animation-delay: 4s; }
+.photo-background img:nth-child(4) { top: 75%; left: 20%; animation-delay: 6; }
+.photo-background img:nth-child(5) { top: 20%; left: 80%; animation-delay: 8s; }
+.photo-background img:nth-child(6) { top: 50%; left: 35%; animation-delay: 10s; }
+
+@keyframes floatRotate {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-40px) rotate(180deg); }
+  100% { transform: translateY(0px) rotate(360deg); }
+}
+
+/* Blur overlay */
+body::before {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(6px);
+  z-index: -1;
+}
+
+/* Envelope */
+.envelope {
+  position: relative;
+  width: 600px;       /* bigger width */
+  height: 600px;      /* bigger height */
+  background: #ff6f91;
+  cursor: pointer;
+  border-radius: 12px;
+  animation: bounce 2s infinite;
+}
+
+/* Envelope front text */
+.envelope-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 2;
+}
+
+.envelope-text h1 {
+  font-family: 'Cursive', 'Brush Script MT', 'Georgia', serif;
+  font-size: 48px;        /* big & beautiful */
+  margin: 0 0 20px 0;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.envelope-text h2 {
+  font-family: 'Cursive', 'Brush Script MT', 'Georgia', serif;
+  font-size: 48px;        /* big & beautiful */
+  margin: 0 0 20px 0;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.envelope-text button {
+  padding: 12px 25px;
+  font-size: 18px;
+  font-family: 'Georgia', serif;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #fff;
+  color: #ff6f91;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.envelope-text button:hover {
+  transform: scale(1.05);
+  background: #ffe0eb;
+}
+
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); } /* slightly bigger bounce for bigger envelope */
+}
+
+/* Flap */
+.flap {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 300px solid transparent;   /* half of envelope width */
+  border-right: 300px solid transparent;  /* half of envelope width */
+  border-bottom: 300px solid #ff8fab;    /* proportional height */
+  top: -300px;                             /* same as border-bottom */
+  transition: transform 1s;
+  transform-origin: bottom;
+}
+
+/* Letter inside envelope */
+.letter {
+  position: absolute;
+  width: 560px;    /* slightly smaller than envelope */
+  height: 480px;   /* proportional height */
+  background: white;
+  top: 20px;
+  left: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  transform: translateY(100%);
+  transition: transform 1s;
+  overflow-y: auto;
+  border-radius: 8px;
+}
+
+.letter p {
+  white-space: pre-line;
+  font-size: 18px;   /* slightly bigger text for bigger envelope */
+  line-height: 1.8;
+}
+
+.open .flap {
+  transform: rotateX(180deg);
+}
+
+.open .letter {
+  transform: translateY(0);
+}
+
+
+/* =======================
+   Valentines Theme Animation
+   Floating hearts and flowers
+========================== */
+
+/* Floating Hearts & Flowers Layer */
+body::after {
+  content: "💖 💕 💘 💗 💓 💞 💝 🌹 🌸 🌺";
+  position: fixed;
+  width: 200%;
+  font-size: 28px;
+  opacity: 0.15;
+  animation: driftHearts 50s linear infinite;
+  white-space: nowrap;
+  z-index: -3;
+}
+
+@keyframes driftHearts {
+  0% { transform: translateX(0) translateY(0) rotate(0deg); }
+  25% { transform: translateX(-10%) translateY(-10%) rotate(45deg); }
+  50% { transform: translateX(-20%) translateY(-5%) rotate(90deg); }
+  75% { transform: translateX(-30%) translateY(-15%) rotate(135deg); }
+  100% { transform: translateX(-50%) translateY(-10%) rotate(360deg); }
+}
+
+/* Corner Flowers with floating animation */
+.corner-flower {
+  position: fixed;
+  font-size: 40px;
+  opacity: 0.7;
+  animation: gentleFloat 6s ease-in-out infinite alternate;
+  z-index: -1;
+}
+
+.top-left { top: 10px; left: 15px; }
+.top-right { top: 10px; right: 15px; }
+.bottom-left { bottom: 10px; left: 15px; }
+.bottom-right { bottom: 10px; right: 15px; }
+
+@keyframes gentleFloat {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(15deg); }
+  100% { transform: translateY(0px) rotate(-15deg); }
+}
+
+/* Optional Romantic Glow */
+body::before {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(255,105,180,0.2), rgba(0,0,0,0.6));
+  z-index: -2;
+}
+
+/* "Click Me" Button Styling */
+#nextButton {
+  padding: 14px 30px;
+  font-size: 22px;
+  font-family: 'Cursive', 'Brush Script MT', 'Dancing Script', serif;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #ff6f91;
+  color: #fff;
+  box-shadow: 2px 2px 12px rgba(0,0,0,0.3);
+  opacity: 0;             /* start invisible */
+  transform: scale(0.8);  
+  transition: transform 0.2s, background 0.2s;
+}
+
+/* Hover effect */
+#nextButton:hover {
+  transform: scale(1.1);
+  background: #ff88aa;
+}
+
+/* Fade-in + fade-out infinite animation */
+@keyframes fadeInOut {
+  0%   { opacity: 0; transform: scale(0.9); }
+  25%  { opacity: 1; transform: scale(1.05); }
+  50%  { opacity: 0; transform: scale(0.9); }
+  75%  { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 0; transform: scale(0.9); }
+}
+
+/* Apply animation when visible */
+#nextButton.show {
+  animation: fadeInOut 4s ease-in-out infinite;
+}
+
+
